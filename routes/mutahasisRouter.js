@@ -3,7 +3,7 @@ const router = express.Router();
 const pool = require('../db'); // Postgres bazasiga ulanish
 
 // CREATE (Qo'shish)
-app.post('/mutahasis', async (req, res) => {
+router.post('/mutahasis', async (req, res) => {
     try {
       const { category, tavsif, desc, filial_id, price } = req.body;
       const query = 'INSERT INTO mutahasis (category, tavsif, desc, filial_id, price) VALUES ($1, $2, $3, $4, $5) RETURNING *';
@@ -16,7 +16,7 @@ app.post('/mutahasis', async (req, res) => {
   });
   
   // READ (O'qish)
-  app.get('/mutahasis', async (req, res) => {
+  router.get('/mutahasis', async (req, res) => {
     try {
       const query = 'SELECT * FROM mutahasis';
       const result = await pool.query(query);
@@ -27,7 +27,7 @@ app.post('/mutahasis', async (req, res) => {
   });
   
   // UPDATE (O'zgartirish)
-  app.put('/mutahasis/:id', async (req, res) => {
+  router.put('/mutahasis/:id', async (req, res) => {
     try {
       const id = req.params.id;
       const { category, tavsif, desc, filial_id, price } = req.body;
@@ -41,7 +41,7 @@ app.post('/mutahasis', async (req, res) => {
   });
   
   // DELETE (O'chirish)
-  app.delete('/mutahasis/:id', async (req, res) => {
+  router.delete('/mutahasis/:id', async (req, res) => {
     try {
       const id = req.params.id;
       const query = 'DELETE FROM mutahasis WHERE id = $1 RETURNING *';

@@ -3,7 +3,7 @@ const router = express.Router();
 const pool = require('../db'); // Postgres bazasiga ulanish
 
 // CREATE (yaratish)
-app.post('/xususiyat_mutahasis', async (req, res) => {
+router.post('/xususiyat_mutahasis', async (req, res) => {
     const { xususiyat_id, mutahasis_id } = req.body;
     try {
       const result = await pool.query(
@@ -18,7 +18,7 @@ app.post('/xususiyat_mutahasis', async (req, res) => {
   });
   
   // READ (o'qish)
-  app.get('/xususiyat_mutahasis', async (req, res) => {
+  router.get('/xususiyat_mutahasis', async (req, res) => {
     try {
       const result = await pool.query('SELECT * FROM xususiyat_mutahasis');
       res.json(result.rows);
@@ -29,7 +29,7 @@ app.post('/xususiyat_mutahasis', async (req, res) => {
   });
   
   // UPDATE (o'zgartirish)
-  app.put('/xususiyat_mutahasis/:id', async (req, res) => {
+  router.put('/xususiyat_mutahasis/:id', async (req, res) => {
     const id = req.params.id;
     const { xususiyat_id, mutahasis_id } = req.body;
     try {
@@ -45,7 +45,7 @@ app.post('/xususiyat_mutahasis', async (req, res) => {
   });
   
   // DELETE (o'chirish)
-  app.delete('/xususiyat_mutahasis/:id', async (req, res) => {
+  router.delete('/xususiyat_mutahasis/:id', async (req, res) => {
     const id = req.params.id;
     try {
       const result = await pool.query('DELETE FROM xususiyat_mutahasis WHERE id = $1', [id]);

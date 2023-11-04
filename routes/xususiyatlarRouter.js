@@ -4,7 +4,7 @@ const pool = require('../db'); // Postgres bazasiga ulanish
 
 
 
-app.post('/xususiyatlar', async (req, res) => {
+router.post('/xususiyatlar', async (req, res) => {
     const { title } = req.body;
     const query = 'INSERT INTO xususiyat (title) VALUES ($1) RETURNING *';
     const values = [title];
@@ -18,7 +18,7 @@ app.post('/xususiyatlar', async (req, res) => {
     }
   });
 
-  app.get('/xususiyatlar', async (req, res) => {
+  router.get('/xususiyatlar', async (req, res) => {
     try {
       const result = await pool.query('SELECT * FROM xususiyat');
       res.json(result.rows);
@@ -28,7 +28,7 @@ app.post('/xususiyatlar', async (req, res) => {
     }
   });
 
-  app.put('/xususiyatlar/:id', async (req, res) => {
+  router.put('/xususiyatlar/:id', async (req, res) => {
     const id = req.params.id;
     const { title } = req.body;
     const query = 'UPDATE xususiyat SET title = $1, time_update = current_timestamp WHERE id = $2 RETURNING *';
@@ -46,7 +46,7 @@ app.post('/xususiyatlar', async (req, res) => {
       res.status(500).json({ error: 'Malumotni o\'zgartirishda xato yuz berdi.' });
     }
   });
-  app.delete('/xususiyatlar/:id', async (req, res) => {
+  router.delete('/xususiyatlar/:id', async (req, res) => {
     const id = req.params.id;
     const query = 'DELETE FROM xususiyat WHERE id = $1 RETURNING *';
     const values = [id];
