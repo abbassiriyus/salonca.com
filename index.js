@@ -42,14 +42,6 @@ app.use('/api', xususiyat_filyalRouter);
 app.use('/api', xususiyat_mutahasisRouter);
 app.use('/api', xususiyatlarRouter);
 app.use('/api', zakazRouter);
-
-
-
-
-
-
-
-
-app.listen(5000, () => {
+app.listen(5001, () => {
     console.log("Localhost is Running");
 })

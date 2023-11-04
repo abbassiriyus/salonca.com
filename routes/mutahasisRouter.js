@@ -5,9 +5,9 @@ const pool = require('../db'); // Postgres bazasiga ulanish
 // CREATE (Qo'shish)
 router.post('/mutahasis', async (req, res) => {
     try {
-      const { category, tavsif, desc, filial_id, price } = req.body;
-      const query = 'INSERT INTO mutahasis (category, tavsif, desc, filial_id, price) VALUES ($1, $2, $3, $4, $5) RETURNING *';
-      const values = [category, tavsif, desc, filial_id, price];
+      const { category, tavsif, description, filial_id, price } = req.body;
+      const query = 'INSERT INTO mutahasis (category, tavsif, description, filial_id, price) VALUES ($1, $2, $3, $4, $5) RETURNING *';
+      const values = [category, tavsif, description, filial_id, price];
       const result = await pool.query(query, values);
       res.json(result.rows[0]);
     } catch (error) {
@@ -30,9 +30,9 @@ router.post('/mutahasis', async (req, res) => {
   router.put('/mutahasis/:id', async (req, res) => {
     try {
       const id = req.params.id;
-      const { category, tavsif, desc, filial_id, price } = req.body;
-      const query = 'UPDATE mutahasis SET category = $1, tavsif = $2, desc = $3, filial_id = $4, price = $5 WHERE id = $6 RETURNING *';
-      const values = [category, tavsif, desc, filial_id, price, id];
+      const { category, tavsif, description, filial_id, price } = req.body;
+      const query = 'UPDATE mutahasis SET category = $1, tavsif = $2, description = $3, filial_id = $4, price = $5 WHERE id = $6 RETURNING *';
+      const values = [category, tavsif, description, filial_id, price, id];
       const result = await pool.query(query, values);
       res.json(result.rows[0]);
     } catch (error) {
