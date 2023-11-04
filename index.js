@@ -14,7 +14,9 @@ app.use(cors())
 app.use(express.static('./media'))
 
 app.use(bodyParser.json());
-
+app.get('/',(req,res)=>{
+    res.send({message:"welcome to our api"})
+})
 
 app.use('/api', filyalRouter);
 app.use('/api', categoryRouter);
