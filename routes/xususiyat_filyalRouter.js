@@ -21,7 +21,7 @@ router.post('/xususiyat_filyal', async (req, res) => {
 // READ - O'qish (GET)
 router.get('/xususiyat_filyal', async (req, res) => {
   try {
-    const result = await pool.query('SELECT * FROM xususiyat_filyal');
+    const result = await db.query('SELECT * FROM xususiyat_filyal');
     res.json(result.rows);
   } catch (error) {
     console.error(error);
