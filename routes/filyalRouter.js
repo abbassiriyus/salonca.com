@@ -27,15 +27,10 @@ router.post('/filyal', async (req, res) => {
       const result = await pool.query(query);
       const query2= 'SELECT * FROM mutahasis';
       const result2= await pool.query(query2);
-
       const query3= 'SELECT * FROM filyal_image';
       const result3= await pool.query(query3);
-
-
-
       const query4= 'SELECT * FROM xususiyat_filyal';
       const result4= await pool.query(query4);
-
       const query5= 'SELECT * FROM xususiyat';
       const result5= await pool.query(query5);
       const query6= 'SELECT * FROM filyal_mark';
@@ -55,8 +50,6 @@ for (let i = 0; i < result.rows.length; i++) {
 result.rows[i].images=[]
 result.rows[i].xususiyat=[]
 result.rows[i].filyal_mark=[]
-
-
   for (let j = 0; j < result2.rows.length; j++) {
  if(result.rows[i].id==result2.rows[j].filial_id){
   result.rows[i].master.push(result2.rows[j])

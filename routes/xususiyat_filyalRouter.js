@@ -19,16 +19,10 @@ router.post('/xususiyat_filyal', async (req, res) => {
 });
 
 // READ - O'qish (GET)
-router.get('/xususiyat_filyal/:id', async (req, res) => {
+router.get('/xususiyat_filyal', async (req, res) => {
   try {
-    const { id } = req.params;
-    const result = await db.query('SELECT * FROM xususiyat_filyal WHERE id = $1', [id]);
-    
-    if (result.rows.length === 0) {
-      res.status(404).json({ error: 'Malumot topilmadi.' });
-    } else {
-      res.json(result.rows[0]);
-    }
+    const result = await pool.query('SELECT * FROM xususiyat_filyal');
+    res.json(result.rows);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error:  error.message });
