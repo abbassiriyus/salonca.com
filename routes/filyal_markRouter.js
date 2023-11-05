@@ -3,7 +3,7 @@ const router = express.Router();
 const pool = require('../db'); // Yuklab olingan PostgreSQL pool
 
 // CREATE (POST)
-router.post('/', async (req, res) => {
+router.post('/filyal_mark', async (req, res) => {
   try {
     const { mark, text, look, creator, filyal_id } = req.body;
     const query = 'INSERT INTO filyal_mark (mark, text, look, creator, filyal_id) VALUES ($1, $2, $3, $4, $5) RETURNING *';
@@ -12,24 +12,24 @@ router.post('/', async (req, res) => {
     res.status(201).json(result.rows[0]);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Malumot yozishda xatolik yuz berdi' });
+    res.status(500).json({ error: error.message});
   }
 });
 
 // READ (GET)
-router.get('/', async (req, res) => {
+router.get('/filyal_mark', async (req, res) => {
   try {
     const query = 'SELECT * FROM filyal_mark';
     const result = await pool.query(query);
     res.json(result.rows);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Malumotni olishda xatolik yuz berdi' });
+    res.status(500).json({ error: error.message });
   }
 });
 
 // UPDATE (PUT)
-router.put('/:id', async (req, res) => {
+router.put('/filyal_mark/:id', async (req, res) => {
   try {
     const id = req.params.id;
     const { mark, text, look, creator, filyal_id } = req.body;
@@ -43,12 +43,12 @@ router.put('/:id', async (req, res) => {
     }
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Malumotni yangilashda xatolik yuz berdi' });
+    res.status(500).json({ error:error.message});
   }
 });
 
 // DELETE (DELETE)
-router.delete('/:id', async (req, res) => {
+router.delete('/filyal_mark/:id', async (req, res) => {
   try {
     const id = req.params.id;
     const query = 'DELETE FROM filyal_mark WHERE id = $1 RETURNING *';
@@ -61,7 +61,7 @@ router.delete('/:id', async (req, res) => {
     }
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Malumotni o'chirishda xatolik yuz berdi" });
+    res.status(500).json({ error: error.message });
   }
 });
 

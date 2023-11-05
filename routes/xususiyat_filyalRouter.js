@@ -14,7 +14,7 @@ router.post('/xususiyat_filyal', async (req, res) => {
     res.json(result.rows[0]);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Malumotlarni qo\'shishda xatolik yuz berdi.' });
+    res.status(500).json({ error:  error.message });
   }
 });
 
@@ -31,7 +31,7 @@ router.get('/xususiyat_filyal/:id', async (req, res) => {
     }
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Malumotlarni olishda xatolik yuz berdi.' });
+    res.status(500).json({ error:  error.message });
   }
 });
 
@@ -51,7 +51,7 @@ router.put('/xususiyat_filyal/:id', async (req, res) => {
     }
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Malumotlarni yangilashda xatolik yuz berdi.' });
+    res.status(500).json({ error:  error.message });
   }
 });
 
@@ -68,7 +68,7 @@ router.delete('/xususiyat_filyal/:id', async (req, res) => {
     }
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Malumotlarni o\'chirishda xatolik yuz berdi.' });
+    res.status(500).json({ error: error.message});
   }
 });
 

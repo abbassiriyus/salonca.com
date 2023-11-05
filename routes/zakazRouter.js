@@ -13,7 +13,7 @@ router.post('/zakaz', async (req, res) => {
     res.json(newZakaz.rows[0]);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server Error');
+    res.status(500).send(err.message);
   }
 });
 
@@ -25,7 +25,7 @@ router.get('/zakaz/:id', async (req, res) => {
     res.json(zakaz.rows[0]);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server Error');
+    res.status(500).send(err.message);
   }
 });
 
@@ -41,7 +41,7 @@ router.put('/zakaz/:id', async (req, res) => {
     res.json(updatedZakaz.rows[0]);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server Error');
+    res.status(500).send(err.message);
   }
 });
 
@@ -53,7 +53,7 @@ router.delete('/zakaz/:id', async (req, res) => {
     res.json('Zakaz deleted successfully');
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server Error');
+    res.status(500).send(err.message);
   }
 });
 

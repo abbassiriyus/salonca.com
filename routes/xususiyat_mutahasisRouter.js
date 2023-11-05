@@ -13,7 +13,7 @@ router.post('/xususiyat_mutahasis', async (req, res) => {
       res.json(result.rows[0]);
     } catch (error) {
       console.error(error);
-      res.status(500).json({ error: 'Xatolik yuz berdi' });
+      res.status(500).json({ error:  error.message });
     }
   });
   
@@ -24,7 +24,7 @@ router.post('/xususiyat_mutahasis', async (req, res) => {
       res.json(result.rows);
     } catch (error) {
       console.error(error);
-      res.status(500).json({ error: 'Xatolik yuz berdi' });
+      res.status(500).json({ error:  error.message });
     }
   });
   
@@ -40,7 +40,7 @@ router.post('/xususiyat_mutahasis', async (req, res) => {
       res.json(result.rows[0]);
     } catch (error) {
       console.error(error);
-      res.status(500).json({ error: 'Xatolik yuz berdi' });
+      res.status(500).json({ error:  error.message });
     }
   });
   
@@ -52,7 +52,7 @@ router.post('/xususiyat_mutahasis', async (req, res) => {
       res.json({ message: "Muvaffaqiyatli o'chirildi" });
     } catch (error) {
       console.error(error);
-      res.status(500).json({ error: 'Xatolik yuz berdi' });
+      res.status(500).json({ error:  error.message });
     }
   });
 module.exports = router;

@@ -13,24 +13,15 @@ const mutahasis_timeRouter = require('./routes/mutahasis_timeRouter.js');
 const userSchemaRouter = require('./routes/userSchemaRouter.js');
 const xususiyat_filyalRouter = require('./routes/xususiyat_filyalRouter.js');
 const xususiyat_mutahasisRouter = require('./routes/xususiyat_mutahasisRouter.js');
-const xususiyatlarRouter = require('./routes/xususiyatlarRouter.js');
+const xususiyatlarRouter=require('./routes/xususiyatlarRouter.js');
 const zakazRouter = require('./routes/zakazRouter.js');
-
-
-
-
-
-
-
 app.use(fileUpload())
 app.use(cors())
 app.use(express.static('./media'))
-
 app.use(bodyParser.json());
 app.get('/',(req,res)=>{
     res.send({message:"welcome to our api"})
 })
-
 app.use('/api', filyalRouter);
 app.use('/api', categoryRouter);
 app.use('/api', filyal_imageRouter);

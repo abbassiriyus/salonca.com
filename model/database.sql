@@ -42,7 +42,10 @@ create table filyal_mark(
 create table zakaz(
     "id" serial primary key,
 "time_end" time not null,
-"time_start" time not null,
+"time_start" time not nu'Xatolik yuz berdi'
+'Xatolik yuz berdi'
+'Xatolik yuz berdi'
+'Xatolik yuz berdi'll,
 "day_zakaz" date not null,
 "mutahasis_id" integer not null,
  "time_create" timestamp default current_timestamp not null,
@@ -74,14 +77,14 @@ create table mutahasis_time(
 );
 create table mutahasis_image(
     "id" serial primary key,
-    "image_url" text not null,
+    "image" text not null,
     "mutahasis_id" integer not null,
     "time_create" timestamp default current_timestamp not null,
     "time_update" timestamp default current_timestamp not null
 );
 create table filyal_image(
     "id" serial primary key,
-    "image_url" text not null,
+    "image" text not null,
     "filyal_id" integer not null,
     "time_create" timestamp default current_timestamp not null,
     "time_update" timestamp default current_timestamp not null

@@ -11,7 +11,7 @@ router.post('/mutahasis', async (req, res) => {
       const result = await pool.query(query, values);
       res.json(result.rows[0]);
     } catch (error) {
-      res.status(500).json({ error: 'Xato yuz berdi' });
+      res.status(500).json({ error: error.message });
     }
   });
   
@@ -22,7 +22,7 @@ router.post('/mutahasis', async (req, res) => {
       const result = await pool.query(query);
       res.json(result.rows);
     } catch (error) {
-      res.status(500).json({ error: 'Xato yuz berdi' });
+      res.status(500).json({ error: error.message });
     }
   });
   
@@ -36,7 +36,7 @@ router.post('/mutahasis', async (req, res) => {
       const result = await pool.query(query, values);
       res.json(result.rows[0]);
     } catch (error) {
-      res.status(500).json({ error: 'Xato yuz berdi' });
+      res.status(500).json({ error: error.message });
     }
   });
   
@@ -49,7 +49,7 @@ router.post('/mutahasis', async (req, res) => {
       const result = await pool.query(query, values);
       res.json(result.rows[0]);
     } catch (error) {
-      res.status(500).json({ error: 'Xato yuz berdi' });
+      res.status(500).json({ error: error.message });
     }
   });
 

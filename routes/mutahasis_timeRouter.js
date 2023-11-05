@@ -15,7 +15,7 @@ router.post('/mutahasis_time', async (req, res) => {
       res.json(result.rows[0]);
     } catch (err) {
       console.error(err);
-      res.status(500).json({ error: 'Malumotni qo\'shishda xatolik yuz berdi' });
+      res.status(500).json({ error:err.message });
     }
   });
   
@@ -26,7 +26,7 @@ router.post('/mutahasis_time', async (req, res) => {
       res.json(result.rows);
     } catch (err) {
       console.error(err);
-      res.status(500).json({ error: 'Malumotlarni o\'qishda xatolik yuz berdi' });
+      res.status(500).json({ error: err.message });
     }
   });
   
@@ -46,7 +46,7 @@ router.post('/mutahasis_time', async (req, res) => {
       }
     } catch (err) {
       console.error(err);
-      res.status(500).json({ error: 'Malumotni tahrirlashda xatolik yuz berdi' });
+      res.status(500).json({ error: err.message});
     }
   });
   
@@ -65,7 +65,7 @@ router.post('/mutahasis_time', async (req, res) => {
       }
     } catch (err) {
       console.error(err);
-      res.status(500).json({ error: 'Malumotni o\'chirishda xatolik yuz berdi' });
+      res.status(500).json({ error:err.message });
     }
   });
   

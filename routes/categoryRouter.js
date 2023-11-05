@@ -10,7 +10,7 @@ router.post('/category', async (req, res) => {
     res.json(newCategory.rows[0]);
   } catch (err) {
     console.error(err.message);
-    res.status(500).json({ error: 'Ma`lumotni qo`shishda xatolik yuz berdi' });
+    res.status(500).json({ error: err.message});
   }
 });
 router.get('/category', async (req, res) => {
@@ -19,7 +19,7 @@ router.get('/category', async (req, res) => {
       res.json(allCategories.rows);
     } catch (err) {
       console.error(err.message);
-      res.status(500).json({ error: 'Ma`lumotlarni olishda xatolik yuz berdi' });
+      res.status(500).json({ error: err.message });
     }
   });
   router.put('/category/:id', async (req, res) => {
@@ -35,7 +35,7 @@ router.get('/category', async (req, res) => {
       res.json(updatedCategory.rows[0]);
     } catch (err) {
       console.error(err.message);
-      res.status(500).json({ error: 'Ma`lumotlarni yangilashda xatolik yuz berdi' });
+      res.status(500).json({ error: err.message });
     }
   });
   router.delete('/category/:id', async (req, res) => {
@@ -50,7 +50,7 @@ router.get('/category', async (req, res) => {
       res.json({ message: 'Kategoriya o`chirildi' });
     } catch (err) {
       console.error(err.message);
-      res.status(500).json({ error: 'Ma`lumotni o`chirishda xatolik yuz berdi' });
+      res.status(500).json({ error: err.message});
     }
   });
   
