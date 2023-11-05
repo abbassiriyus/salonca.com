@@ -60,13 +60,13 @@ result.rows[i].xususiyat=[]
 
    for (let j = 0; j < result3.rows.length; j++) {
   if(result.rows[i].id==result3.rows[j].filyal_id){
-   result.rows[i].master.push(result3.rows[j])
+   result.rows[i].images.push(result3.rows[j])
   }
   }
 
   for (let j = 0; j < result4.rows.length; j++) {
     if(result.rows[i].id==result4.rows[j].filyal_id){
-     result.rows[i].master.push(result4.rows[j])
+     result.rows[i].xususiyat.push(result4.rows[j])
     }
     }
 }
