@@ -35,16 +35,13 @@ router.post('/filyal', async (req, res) => {
       const result5= await pool.query(query5);
       const query6= 'SELECT * FROM filyal_mark';
       const result6= await pool.query(query6);
-
-
 for (let i = 0; i < result4.rows.length; i++) {
  for (let j = 0; j < result5.rows.length; j++) {
-  if(result5.rows[i].id==result4.rows[j].xususiyat_id){
+  if(result5.rows[j].id==result4.rows[i].xususiyat_id){
     result4.rows[i].title=result5.rows[j].title
    }
  }
 }
-
 for (let i = 0; i < result.rows.length; i++) {
  result.rows[i].master=[]
 result.rows[i].images=[]
@@ -80,6 +77,7 @@ result.rows[i].filyal_mark=[]
 
 
     } catch (error) {
+      console.log(error);
       res.status(500).json({ error: error.message});
     }
   });
