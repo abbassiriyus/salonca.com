@@ -1,78 +1,95 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const filial = require('../controllers/filial.js');
-
 const router = express.Router();
-router.use(bodyParser.json());
+const pool = require('../db'); // Postgres bazasiga ulanish
+const { upload_file } = require('../middleware/file_upload');
 
-// Create a new filial
+
+
+
+// CREATE - Yangi ma'lumot qo'shish
 router.post('/filyal', async (req, res) => {
-  try {
-    const newFilial = await filial.createFilial(req.body);
-    res.json(newFilial.rows[0]);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: error.message });
-  }
-});
-
-// Get all filials
-router.get('/filyal', async (req, res) => {
-  try {
-    const filials = await filial.getFiliais();
-    res.json(filials.rows);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: error.message });
-  }
-});
-
-// Get a filial by ID
-router.get('/filyal/:id', async (req, res) => {
-  try {
-    const id = parseInt(req.params.id);
-    const filialData = await filial.getFilialById(id);
-    if (filialData.rows.length === 0) {
-      res.status(404).json({ error: 'Filial not found' });
-    } else {
-      res.json(filialData.rows[0]);
+    try {
+      const {address,location,longuage,name,description,phone,creator,min_time } = req.body;
+      const query = 'INSERT INTO filyal (image, address,location,longuage,name,description,phone,creator,min_time) VALUES ($1, $2,$3,$4,$5,$6,$7,$8,$9) RETURNING *';
+      var image=upload_file(req)
+      const values = [image, address,location,longuage,name,description,phone,creator,min_time];
+      const result = await pool.query(query, values);
+      res.json(result.rows[0]);
+    } catch (error) {
+      res.status(500).json({ error: error.message});
     }
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: error.message });
-  }
-});
+  });
+  
+  // READ - Barcha ma'lumotlarni olish
+  router.get('/filyal', async (req, res) => {
+    try {
+      const query = 'SELECT * FROM filyal';
+      const result = await pool.query(query);
+      const query2= 'SELECT * FROM mutahasis';
+      const result2= await pool.query(query2);
 
-// Update a filial by ID
-router.put('/filyal/:id', async (req, res) => {
-  try {
-    const id = parseInt(req.params.id);
-    const updatedFilial = await filial.updateFilial(id, req.body);
-    if (updatedFilial.rows.length === 0) {
-      res.status(404).json({ error: 'Filial not found' });
-    } else {
-      res.json(updatedFilial.rows[0]);
+      const query3= 'SELECT * FROM filyal_image';
+      const result3= await pool.query(query3);
+
+
+
+      const query4= 'SELECT * FROM xususiyat_filyal';
+      const result4= await pool.query(query4);
+
+      const query5= 'SELECT * FROM xususiyat';
+      const result5= await pool.query(query5);
+
+
+for (let i = 0; i < result.rows.length; i++) {
+ result.rows[i].master=[]
+  for (let j = 0; j < result2.rows.length; j++) {
+ if(result.rows[i].id==result2.rows[j].filial_id){
+  result.rows[i].master.push(result2.rows[j])
+ }
+ }
+}
+
+      res.json(result.rows);
+
+
+
+    } catch (error) {
+      res.status(500).json({ error: error.message});
     }
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: error.message });
-  }
-});
-
-// Delete a filial by ID
-router.delete('/filyal/:id', async (req, res) => {
-  try {
-    const id = parseInt(req.params.id);
-    const deletedFilial = await filial.deleteFilial(id);
-    if (deletedFilial.rows.length === 0) {
-      res.status(404).json({ error: 'Filial not found' });
-    } else {
-      res.json(deletedFilial.rows[0]);
+  });
+  
+  // UPDATE - Ma'lumotni yangilash
+  router.put('/filyal/:id', async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { address,location,longuage,name,description,phone,creator,min_time } = req.body;
+      const image = await pool.query('SELECT * FROM filyal WHERE id = $1', [id]);
+      var auto_img=put_file(image.rows[0].image,req)
+      const query = 'UPDATE filyal SET  image=$1, address = $2,location=$3,longuage=$4,name=$5,description=$6,phone=$7,creator=$8,min_time=$9 time_update = current_timestamp WHERE id = $10 RETURNING *';
+      const values = [auto_img,address,location,longuage,name,description,phone,creator,min_time, id];
+      const result = await pool.query(query, values);
+      res.json(result.rows[0]);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
     }
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: error.message });
-  }
-});
-
-module.exports = router;
+  });
+  
+  // DELETE - Ma'lumotni o'chirish
+  router.delete('/filyal/:id', async (req, res) => {
+    try {
+      const { id } = req.params;
+      const query = 'DELETE FROM filyal WHERE id = $1';
+      const values = [id];
+      const deletedImage = await pool.query(query, values);
+      if(deletedImage.rows.length>0){
+       delete_file(deletedImage.rows[0].image)
+      res.json(deletedImage.rows[0]);
+      }else{
+        res.status(500).json({ error:"no data"});
+      }
+    } catch (error) {
+      res.status(500).json({ error:error.message});
+    }
+  });
+  
+  module.exports = router;

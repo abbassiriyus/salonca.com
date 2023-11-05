@@ -12,9 +12,21 @@ const createFilial = (filial) => {
   return pool.query(query, [image, address, location, longuage, name, description, phone, creator, min_time]);
 };
 
-const getFiliais = () => {
-  const query = 'SELECT * FROM filyal';
-  return pool.query(query);
+const getFiliais = async () => {
+  const query1 =pool.query('SELECT * FROM filyal');
+
+  console.log(await query1);
+  // const query2 = (pool.query('SELECT * FROM mutahasis')).rows[0] ;
+  // console.log(query2);
+// for (let i = 0; i < query.length; i++) {
+//  for (let j = 0; j < query2.length; j++) {
+ 
+  
+//  }
+  
+// }
+
+  return query1;
 };
 
 const getFilialById = (id) => {
