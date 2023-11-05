@@ -38,6 +38,9 @@ router.post('/filyal', async (req, res) => {
 
       const query5= 'SELECT * FROM xususiyat';
       const result5= await pool.query(query5);
+      const query6= 'SELECT * FROM filyal_mark';
+      const result6= await pool.query(query6);
+
 
 for (let i = 0; i < result4.rows.length; i++) {
  for (let j = 0; j < result5.rows.length; j++) {
@@ -51,6 +54,8 @@ for (let i = 0; i < result.rows.length; i++) {
  result.rows[i].master=[]
 result.rows[i].images=[]
 result.rows[i].xususiyat=[]
+result.rows[i].filyal_mark=[]
+
 
   for (let j = 0; j < result2.rows.length; j++) {
  if(result.rows[i].id==result2.rows[j].filial_id){
@@ -69,6 +74,11 @@ result.rows[i].xususiyat=[]
      result.rows[i].xususiyat.push(result4.rows[j])
     }
     }
+    for (let j = 0; j < result6.rows.length; j++) {
+      if(result.rows[i].id==result6.rows[j].filyal_id){
+       result.rows[i].filyal_mark.push(result6.rows[j])
+      }
+      }
 }
  
 

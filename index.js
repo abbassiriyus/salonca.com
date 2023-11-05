@@ -15,6 +15,7 @@ const xususiyat_filyalRouter = require('./routes/xususiyat_filyalRouter.js');
 const xususiyat_mutahasisRouter = require('./routes/xususiyat_mutahasisRouter.js');
 const xususiyatlarRouter=require('./routes/xususiyatlarRouter.js');
 const zakazRouter = require('./routes/zakazRouter.js');
+
 app.use(fileUpload())
 app.use(cors())
 app.use(express.static('./media'))
@@ -24,7 +25,10 @@ app.get('/',(req,res)=>{
 })
 app.use('/api', filyalRouter);
 app.use('/api', categoryRouter);
+
 app.use('/api', filyal_imageRouter);
+app.use('/api', filyal_markRouter);
+
 app.use('/api', mutahasisRouter);
 app.use('/api', mutahasis_imageRouter);
 app.use('/api', mutahasis_timeRouter);
