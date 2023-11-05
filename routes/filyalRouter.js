@@ -62,17 +62,17 @@ for (let i = 0; i < result2.rows.length; i++) {
 
   for (let j = 0; j < result7.rows.length; j++) {
    if(result2.rows[i].id==result7.rows[j].mutahasis_id){
-    result2.rows[i].mutahasis_time=result7.rows[j]
+    result2.rows[i].mutahasis_time.push(result7.rows[j])
     }
   }
   for (let j = 0; j < result8.rows.length; j++) {
     if(result2.rows[i].id==result8.rows[j].mutahasis_id){
-      result2.rows[i].mutahasis_image=result8.rows[j]
+      result2.rows[i].mutahasis_image.push(result8.rows[j])
      }
    }
    for (let j = 0; j < result9.rows.length; j++) {
     if(result2.rows[i].id==result9.rows[j].mutahasis_id){
-      rresult2.rows[i].xususiyat_mutahasis=result9.rows[j]
+      result2.rows[i].xususiyat_mutahasis.push(result9.rows[j])
      }
    }
  }
