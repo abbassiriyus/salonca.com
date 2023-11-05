@@ -35,6 +35,18 @@ router.post('/filyal', async (req, res) => {
       const result5= await pool.query(query5);
       const query6= 'SELECT * FROM filyal_mark';
       const result6= await pool.query(query6);
+      
+
+
+      const query7= 'SELECT * FROM mutahasis_time';
+      const result7= await pool.query(query7);
+
+      const query8= 'SELECT * FROM mutahasis_image';
+      const result8= await pool.query(query8);
+
+      const query9= 'SELECT * FROM xususiyat_mutahasis';
+      const result9= await pool.query(query9);
+
 for (let i = 0; i < result4.rows.length; i++) {
  for (let j = 0; j < result5.rows.length; j++) {
   if(result5.rows[j].id==result4.rows[i].xususiyat_id){
@@ -42,6 +54,32 @@ for (let i = 0; i < result4.rows.length; i++) {
    }
  }
 }
+
+for (let i = 0; i < result2.rows.length; i++) {
+  result2.rows[i].mutahasis_time=[]
+  result2.rows[i].mutahasis_image=[]
+  result2.rows[i].xususiyat_mutahasis=[]
+
+  for (let j = 0; j < result7.rows.length; j++) {
+   if(result2.rows[i].id==result7.rows[j].mutahasis_id){
+    result2.rows[i].mutahasis_time=result7.rows[j]
+    }
+  }
+  for (let j = 0; j < result8.rows.length; j++) {
+    if(result2.rows[i].id==result8.rows[j].mutahasis_id){
+      result2.rows[i].mutahasis_image=result8.rows[j]
+     }
+   }
+   for (let j = 0; j < result9.rows.length; j++) {
+    if(result2.rows[i].id==result9.rows[j].mutahasis_id){
+      rresult2.rows[i].xususiyat_mutahasis=result9.rows[j]
+     }
+   }
+ }
+
+
+
+
 for (let i = 0; i < result.rows.length; i++) {
  result.rows[i].master=[]
 result.rows[i].images=[]
