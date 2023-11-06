@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const pool = require('../db'); // Postgres bazasiga ulanish
-const { upload_file } = require('../middleware/file_upload');
+const { upload_file, put_file, delete_file } = require('../middleware/file_upload');
 
 
 
