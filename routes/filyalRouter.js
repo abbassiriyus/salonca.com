@@ -127,7 +127,7 @@ result.rows[i].filyal_mark=[]
       const { address,location,longuage,name,description,phone,creator,min_time } = req.body;
       const image = await pool.query('SELECT * FROM filyal WHERE id = $1', [id]);
       var auto_img=put_file(image.rows[0].image,req)
-      const query = 'UPDATE filyal SET  image=$1, address = $2,location=$3,longuage=$4,name=$5,description=$6,phone=$7,creator=$8,min_time=$9 time_update = current_timestamp WHERE id = $10 RETURNING *';
+      const query = 'UPDATE filyal SET  image=$1, address = $2,location=$3,longuage=$4,name=$5,description=$6,phone=$7,creator=$8,min_time=$9, time_update = current_timestamp WHERE id = $10 RETURNING *';
       const values = [auto_img,address,location,longuage,name,description,phone,creator,min_time, id];
       const result = await pool.query(query, values);
       res.json(result.rows[0]);
