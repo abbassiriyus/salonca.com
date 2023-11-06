@@ -16,7 +16,15 @@ router.post('/zakaz', async (req, res) => {
     res.status(500).send(err.message);
   }
 });
-
+router.get('/zakaz', async (req, res) => {
+  try {
+    const query = 'SELECT * FROM zakaz';
+    const result = await pool.query(query);
+    res.json(result.rows);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 // READ zakaz
 router.get('/zakaz/:id', async (req, res) => {
   try {
