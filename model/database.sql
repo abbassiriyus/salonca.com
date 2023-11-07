@@ -42,10 +42,7 @@ create table filyal_mark(
 create table zakaz(
     "id" serial primary key,
 "time_end" time not null,
-"time_start" time not nu'Xatolik yuz berdi'
-'Xatolik yuz berdi'
-'Xatolik yuz berdi'
-'Xatolik yuz berdi'll,
+"time_start" time not null,
 "day_zakaz" date not null,
 "mutahasis_id" integer not null,
  "time_create" timestamp default current_timestamp not null,
