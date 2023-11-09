@@ -45,7 +45,7 @@ router.post("/register",async (req, res) => {
   const body = req.body
   if(body){
   var code =Math.floor(Math.random() * 900000)+100000;
-   const hashedPassword = await bcrypt.hash(password, 10);
+   const hashedPassword = await bcrypt.hash(body.password, 10);
  
   if(body.password.length>7 && body.email.includes('@')){
   pool.query('INSERT INTO verify (password,email,username,code) VALUES ($1,$2,$3,$4) RETURNING *',
@@ -105,7 +105,7 @@ router.post("/register",async (req, res) => {
       }
   
       // Create token with API secret
-      const jwtToken = jwt.sign({id: user.id, name: user.name, email: email}, SECRET, { expiresIn: '1h' });
+      const jwtToken = jwt.sign({id: user.id, name: user.name, email: email}, passwordMatch, { expiresIn: '1h' });
   
       // Send back the token
       res.json({ token: jwtToken, message: 'You have successfully logged in!' });
@@ -117,16 +117,15 @@ router.post("/register",async (req, res) => {
   });
 
 
-  router.put("/reset/", (req, res) => {
+  router.put("/reset/", async(req, res) => {
     const body = req.body
+    const hashedPassword = await bcrypt.hash(body.password, 10);
     pool.query("SELECT * FROM users", (err, result1) => {
         if (!err) {
-            console.log(result1.rows);
-            console.log(body.code);
             var s=result1.rows.filter(item=>item.verify==body.code)
             console.log(s);
             pool.query('UPDATE users SET password=$1 WHERE id=$2',
-            [body.password,s[0].id],
+            [hashedPassword,s[0].id],
             (err, result) => {
                 if (err) {
                     res.status(400).send({err:err,message:'parol oldin ishlatilgan'})
@@ -146,20 +145,18 @@ router.post("/verify", (req, res) => {
     const body = req.body
     var datatime=new Date()
     pool.query("SELECT * FROM verify", (err, result) => {
-        console.log(1);
         if (!err) {
-
         var data2=result.rows.filter(item=>item.code==body.code)
         if(data2.length===1){
-            console.log(2);
           pool.query('INSERT INTO users (password,email,username,last_login,time_create,time_update) VALUES ($1,$2,$3,$4,$5,$6) RETURNING *',
         [data2[0].password,data2[0].email,data2[0].username,datatime,datatime,datatime], (err, result) => {
             if (err) {
-                res.status(400).send(err)
+              console.log(err);
+                res.status(400).send(err.message)
             } else {
                 pool.query('DELETE FROM verify WHERE id = $1', [data2[0].id], (err, result) => {
                     if (err) {
-                        res.status(400).send(err)
+                        res.status(400).send(err.message)
                     } else {
                         console.log(result.rows);
                         token = jwt.sign({ password:data2[0].password,email:data2[0].email,username:data2[0].username,position:data2[0].position}, 'secret')
@@ -172,7 +169,7 @@ router.post("/verify", (req, res) => {
             res.status(501).send("error code")
         }
         } else {
-            res.status(404).send(err)
+            res.status(404).send(err.message)
         }
     })
   
@@ -270,8 +267,8 @@ router.put('/user', async (req, res) => {
     }
   });
 router.post('/users', async (req, res) => {
-  const hashedPassword = await bcrypt.hash(password, 10);
-    pool.query('INSERT INTO users(email, password, ptichka, name, superadmin) VALUES($1, $2, $3, $4, $5)', [req.body.email, hashedPassword, req.body.ptichka, req.body.name, req.body.superadmin])
+  const hashedPassword = await bcrypt.hash(res.body.password, 10);
+    pool.query('INSERT INTO users(email, password, username, name, superadmin) VALUES($1, $2, $3, $4, $5)', [req.body.email, hashedPassword, req.body.ptichka, req.body.name, req.body.superadmin])
      .then(() => {
          res.status(200).json({
              status: 'success',
@@ -286,11 +283,7 @@ router.post('/users', async (req, res) => {
 router.get('/users', (req, res) => {
     pool.query('SELECT * FROM users')
      .then((data) => {
-         res.status(200).json({
-             status: 'success',
-             data: data.rows,
-             message: 'Retrieved ALL users'
-         });
+         res.status(200).json(data.rows);
      })
      .catch((error) => {
          return next(error);
