@@ -41,14 +41,15 @@ const transporter = nodemailer.createTransport({
 //   });
 
 // registratsiya
-router.post("/register", (req, res) => {
+router.post("/register",async (req, res) => {
   const body = req.body
   if(body){
   var code =Math.floor(Math.random() * 900000)+100000;
+   const hashedPassword = await bcrypt.hash(password, 10);
  
   if(body.password.length>7 && body.email.includes('@')){
   pool.query('INSERT INTO verify (password,email,username,code) VALUES ($1,$2,$3,$4) RETURNING *',
-      [body.password,body.email,body.username,code], (err, result) => {
+      [hashedPassword,body.email,body.username,code], (err, result) => {
           if (err) {
             console.log(err);
               res.status(400).send(err.message)
