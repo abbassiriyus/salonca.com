@@ -166,14 +166,14 @@ router.get('/users', (req, res) => {
          res.status(200).json(data.rows);
      })
      .catch((error) => {
-         return next(error);
+         res.status(400).send(error.message)
      });
 });
 
 // Update -> PUT request
 router.put('/users/:id', (req, res) => {
-    pool.query('UPDATE users SET email=$1, password=$2, phone=$3, username=$4, superadmin=$5 WHERE id = $6', 
-    [req.body.email, req.body.password, req.body.phone, req.body.username, req.body.superadmin, parseInt(req.params.id)])
+    pool.query('UPDATE users SET email=$1, phone=$3, username=$4, superadmin=$5 WHERE id = $2', 
+    [req.body.email,parseInt(req.params.id), req.body.phone, req.body.username, req.body.superadmin, ])
      .then(() => {
          res.status(200).json({
              status: 'success',
@@ -187,7 +187,7 @@ router.put('/users/:id', (req, res) => {
 
 // Delete -> DELETE request
 router.delete('/users/:id', (req, res) => {
-    pool.query('DELETE FROM users WHERE id = $1', parseInt(req.params.id))
+    pool.query('DELETE FROM users WHERE id = $1', [parseInt(req.params.id)])
      .then((result) => {
          res.status(200).json({
              status: 'success',
@@ -195,7 +195,7 @@ router.delete('/users/:id', (req, res) => {
          });
      })
      .catch((error) => {
-         return next(error);
+         res.status(400).send(error.message)
      });
 });
 module.exports=router
