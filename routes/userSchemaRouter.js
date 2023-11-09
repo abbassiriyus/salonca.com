@@ -105,7 +105,7 @@ router.post("/register",async (req, res) => {
       }
   
       // Create token with API secret
-      const jwtToken = jwt.sign({id: user.id, name: user.name, email: email}, passwordMatch, { expiresIn: '1h' });
+      const jwtToken = jwt.sign({id: user.id, name: user.name, email: email},'secret', { expiresIn: '1h' });
   
       // Send back the token
       res.json({ token: jwtToken, message: 'You have successfully logged in!' });
