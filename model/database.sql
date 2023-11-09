@@ -15,7 +15,7 @@ create table filyal(
 
 create table users(
        "id" serial primary key,
-       "phone" varchar(50) not null,
+       "phone" varchar(50),
        "password" varchar(32) not null,
        "nickName" varchar(64) not null,
        "avatarUrl" text,
