@@ -9,28 +9,77 @@ const router = express.Router();
 // router.use(bodyParser.json());
 
 const SECRET =process.env.TOKEN_SECRET;
+const nodemailer =require("nodemailer")
+const transporter = nodemailer.createTransport({
+   service: "gmail",
+   auth: {
+      user: process.env.EMAIL_verify,
+      pass: process.env.EMAIL_key
+   }
+});
 
-router.post('/register', async (req, res) => {
-    try {
-      const { email, password, name } = req.body;
+// router.post('/register', async (req, res) => {
+//     try {
+//       const { email, password, name } = req.body;
     
-      // add some basic validation
-      if(!phone || !email || !password) throw new Error('All fields are required.');    
+//       // add some basic validation
+//       if(!phone || !email || !password) throw new Error('All fields are required.');    
   
-      const hashedPassword = await bcrypt.hash(password, 10);
-      const user = {
-        phone: phone,
-        email: email,
-        password: hashedPassword
-      }
-      const jwtToken = jwt.sign(user, SECRET);
-      await pool.query('INSERT INTO users (email,password,name,token) VALUES ($1, $2, $3, $4 )', [email, hashedPassword, name, jwtToken]);
-      res.json({ token: jwtToken, message: 'Registered successfully!' });
-    } catch(err) {
-        // set status code to 400 for client errors and provide error message
-        res.status(400).json({ error: err.message });
-    }
-  });
+//       const hashedPassword = await bcrypt.hash(password, 10);
+//       const user = {
+//         phone: phone,
+//         email: email,
+//         password: hashedPassword
+//       }
+//       const jwtToken = jwt.sign(user, SECRET);
+//       await pool.query('INSERT INTO users (email,password,name,token) VALUES ($1, $2, $3, $4 )', [email, hashedPassword, name, jwtToken]);
+//       res.json({ token: jwtToken, message: 'Registered successfully!' });
+//     } catch(err) {
+//         // set status code to 400 for client errors and provide error message
+//         res.status(400).json({ error: err.message });
+//     }
+//   });
+
+// registratsiya
+router.post("/register", (req, res) => {
+  const body = req.body
+  if(body){
+  var code =Math.floor(Math.random() * 900000)+100000;
+ 
+  if(body.password.length>7 && body.email.includes('@')){
+  pool.query('INSERT INTO verify (password,email,username,code) VALUES ($1,$2,$3,$4) RETURNING *',
+      [body.password,body.email,body.username,code], (err, result) => {
+          if (err) {
+            console.log(err);
+              res.status(400).send(err.message)
+          } else {
+              var mailOptions = {
+                  from: process.env.EMAIL_verify,
+                  to: body.email,
+                  subject: "Verification Code",
+                  html: `Your activation code:${code}`
+               };
+              transporter.sendMail(mailOptions, function(error, info){
+                  if(error){
+                     console.log(error,"error");
+                  }else{
+                     console.log("your code: "+code);
+               
+                  }
+               });
+              res.status(201).send("send message your email")
+          }
+      })}else{
+          if(body.password.length<8){
+          res.status(420).send("parol kam kiritildi")
+          }
+          if(!(body.email.includes('@'))){
+              res.status(421).send("email xato kiritildi")
+          }}
+         }else{
+              res.status(441).send("malumotni yubormadingiz")
+          }
+})
 
   router.post('/login', async (req, res) => {
     try {
@@ -65,6 +114,72 @@ router.post('/register', async (req, res) => {
         res.status(400).json({ error: err.message });
     }
   });
+
+
+  router.put("/reset/", (req, res) => {
+    const body = req.body
+    pool.query("SELECT * FROM users", (err, result1) => {
+        if (!err) {
+            console.log(result1.rows);
+            console.log(body.code);
+            var s=result1.rows.filter(item=>item.verify==body.code)
+            console.log(s);
+            pool.query('UPDATE users SET password=$1 WHERE id=$2',
+            [body.password,s[0].id],
+            (err, result) => {
+                if (err) {
+                    res.status(400).send({err:err,message:'parol oldin ishlatilgan'})
+                } else {
+                    res.status(200).send("Updated")
+                }})
+        } else {
+            res.status(400).send(err)
+        } 
+    }) 
+  
+})
+
+    
+// verifikatsiya
+router.post("/verify", (req, res) => {
+    const body = req.body
+    var datatime=new Date()
+    pool.query("SELECT * FROM verify", (err, result) => {
+        console.log(1);
+        if (!err) {
+
+        var data2=result.rows.filter(item=>item.code==body.code)
+        if(data2.length===1){
+            console.log(2);
+          pool.query('INSERT INTO users (password,email,username,last_login,time_create,time_update) VALUES ($1,$2,$3,$4,$5,$6) RETURNING *',
+        [data2[0].password,data2[0].email,data2[0].username,datatime,datatime,datatime], (err, result) => {
+            if (err) {
+                res.status(400).send(err)
+            } else {
+                pool.query('DELETE FROM verify WHERE id = $1', [data2[0].id], (err, result) => {
+                    if (err) {
+                        res.status(400).send(err)
+                    } else {
+                        console.log(result.rows);
+                        token = jwt.sign({ password:data2[0].password,email:data2[0].email,username:data2[0].username,position:data2[0].position}, 'secret')
+                        res.status(200).send({access:token})
+                    }
+                })
+            }
+        })   
+        }else{
+            res.status(501).send("error code")
+        }
+        } else {
+            res.status(404).send(err)
+        }
+    })
+  
+})
+
+
+
+
   router.get('/user', async (req, res) => {
     // Token "Authorization" sarlavhasi orqali olinadi. Bunday sarlavha yo'q bo'lsa, xatolik qaytariladi.
     const token = req.header('authorization').split(' ')[1];

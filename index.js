@@ -10,7 +10,9 @@ const filyal_markRouter = require('./routes/filyal_markRouter.js');
 const mutahasisRouter = require('./routes/mutahasisRouter.js');
 const mutahasis_imageRouter = require('./routes/mutahasis_imageRouter.js');
 const mutahasis_timeRouter = require('./routes/mutahasis_timeRouter.js');
+const verifyRouter = require('./routes/verifyRouter.js');
 const userSchemaRouter = require('./routes/userSchemaRouter.js');
+
 const xususiyat_filyalRouter = require('./routes/xususiyat_filyalRouter.js');
 const xususiyat_mutahasisRouter = require('./routes/xususiyat_mutahasisRouter.js');
 const xususiyatlarRouter=require('./routes/xususiyatlarRouter.js');
@@ -28,6 +30,8 @@ app.use('/api', categoryRouter);
 
 app.use('/api', filyal_imageRouter);
 app.use('/api', filyal_markRouter);
+app.use('/api', verifyRouter);
+
 
 app.use('/api', mutahasisRouter);
 app.use('/api', mutahasis_imageRouter);
