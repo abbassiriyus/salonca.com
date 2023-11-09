@@ -21,6 +21,7 @@ create table users(
        "superadmin" Boolean default false not null, 
        "last_login" timestamp default current_timestamp not null, 
        "email" varchar(255) not null,
+        unique(email),
        "time_create" timestamp default current_timestamp not null,
        "time_update" timestamp default current_timestamp not null
 );
