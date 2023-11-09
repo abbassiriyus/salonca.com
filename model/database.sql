@@ -28,7 +28,15 @@ create table users(
        "time_create" timestamp default current_timestamp not null,
        "time_update" timestamp default current_timestamp not null
 );
-
+create table verify(
+       "id" serial primary key,
+       "email" varchar(255) not null,
+       "nickName" varchar(64) not null,
+       "password" varchar(32) not null,
+       "code" varchar(6) not null,
+        "time_create" timestamp default current_timestamp not null,
+       "time_update" timestamp default current_timestamp not null
+);
 create table filyal_mark(
     "id" serial primary key,
     "mark" text not null,
