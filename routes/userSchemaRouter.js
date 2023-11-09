@@ -269,8 +269,9 @@ router.put('/user', async (req, res) => {
       res.status(500).send('Something went wrong during the update process.');
     }
   });
-router.post('/users', (req, res) => {
-    pool.query('INSERT INTO users(email, password, ptichka, name, superadmin) VALUES($1, $2, $3, $4, $5)', [req.body.email, req.body.password, req.body.ptichka, req.body.name, req.body.superadmin])
+router.post('/users', async (req, res) => {
+  const hashedPassword = await bcrypt.hash(password, 10);
+    pool.query('INSERT INTO users(email, password, ptichka, name, superadmin) VALUES($1, $2, $3, $4, $5)', [req.body.email, hashedPassword, req.body.ptichka, req.body.name, req.body.superadmin])
      .then(() => {
          res.status(200).json({
              status: 'success',
