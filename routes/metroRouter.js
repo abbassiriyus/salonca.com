@@ -6,7 +6,7 @@ const pool = require('../db'); // Postgres bazasiga ulanish
 
 router.post('/metro', async (req, res) => {
     const { title } = req.body;
-    const query = 'INSERT INTO xususiyat (title) VALUES ($1) RETURNING *';
+    const query = 'INSERT INTO metro (title) VALUES ($1) RETURNING *';
     const values = [title];
     
     try {
@@ -20,7 +20,7 @@ router.post('/metro', async (req, res) => {
 
   router.get('/metro', async (req, res) => {
     try {
-      const result = await pool.query('SELECT * FROM xususiyat');
+      const result = await pool.query('SELECT * FROM metro');
       res.json(result.rows);
     } catch (err) {
       console.error(err);
@@ -31,13 +31,13 @@ router.post('/metro', async (req, res) => {
   router.put('/metro/:id', async (req, res) => {
     const id = req.params.id;
     const { title } = req.body;
-    const query = 'UPDATE xususiyat SET title = $1, time_update = current_timestamp WHERE id = $2 RETURNING *';
+    const query = 'UPDATE metro SET title = $1, time_update = current_timestamp WHERE id = $2 RETURNING *';
     const values = [title, id];
     
     try {
       const result = await pool.query(query, values);
       if (result.rows.length === 0) {
-        res.status(404).json({ error: 'Xususiyat topilmadi.' });
+        res.status(404).json({ error: 'metro topilmadi.' });
       } else {
         res.json(result.rows[0]);
       }
@@ -48,15 +48,15 @@ router.post('/metro', async (req, res) => {
   });
   router.delete('/metro/:id', async (req, res) => {
     const id = req.params.id;
-    const query = 'DELETE FROM xususiyat WHERE id = $1 RETURNING *';
+    const query = 'DELETE FROM metro WHERE id = $1 RETURNING *';
     const values = [id];
     
     try {
       const result = await pool.query(query, values);
       if (result.rows.length === 0) {
-        res.status(404).json({ error: 'Xususiyat topilmadi.' });
+        res.status(404).json({ error: 'metro topilmadi.' });
       } else {
-        res.json({ message: 'Xususiyat o\'chirildi.' });
+        res.json({ message: 'metro o\'chirildi.' });
       }
     } catch (err) {
       console.error(err);
