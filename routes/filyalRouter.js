@@ -47,6 +47,20 @@ router.post('/filyal', async (req, res) => {
       const query9= 'SELECT * FROM xususiyat_mutahasis';
       const result9= await pool.query(query9);
 
+
+      const query10= 'SELECT * FROM metro';
+      const result10= await pool.query(query10);
+
+      const query11= 'SELECT * FROM metro_filyal';
+      const result11= await pool.query(query11);
+
+      const query12= 'SELECT * FROM rayon';
+      const result12= await pool.query(query12);
+
+      const query13= 'SELECT * FROM rayon_filyal';
+      const result13= await pool.query(query13);
+
+
 for (let i = 0; i < result4.rows.length; i++) {
  for (let j = 0; j < result5.rows.length; j++) {
   if(result5.rows[j].id==result4.rows[i].xususiyat_id){
@@ -55,6 +69,20 @@ for (let i = 0; i < result4.rows.length; i++) {
  }
 }
 
+for (let i = 0; i < result11.rows.length; i++) {
+  for (let j = 0; j < result10.rows.length; j++) {
+   if(result10.rows[j].id==result11.rows[i].metro_id){
+     result11.rows[i].title=result10.rows[j].title
+    }
+  }
+ }
+ for (let i = 0; i < result13.rows.length; i++) {
+  for (let j = 0; j < result12.rows.length; j++) {
+   if(result12.rows[j].id==result13.rows[i].xususiyat_id){
+     result13.rows[i].title=result12.rows[j].title
+    }
+  }
+}
 for (let i = 0; i < result2.rows.length; i++) {
   result2.rows[i].mutahasis_time=[]
   result2.rows[i].mutahasis_image=[]
@@ -85,6 +113,9 @@ for (let i = 0; i < result.rows.length; i++) {
 result.rows[i].images=[]
 result.rows[i].xususiyat=[]
 result.rows[i].filyal_mark=[]
+result.rows[i].metro=[]
+result.rows[i].rayon=[]
+
   for (let j = 0; j < result2.rows.length; j++) {
  if(result.rows[i].id==result2.rows[j].filial_id){
   result.rows[i].master.push(result2.rows[j])
@@ -107,6 +138,18 @@ result.rows[i].filyal_mark=[]
        result.rows[i].filyal_mark.push(result6.rows[j])
       }
       }
+      for (let j = 0; j < result10.rows.length; j++) {
+        if(result.rows[i].id==result10.rows[j].filyal_id){
+         result.rows[i].metro.push(result10.rows[j])
+        }
+        }
+        for (let j = 0; j < result12.rows.length; j++) {
+          if(result.rows[i].id==result12.rows[j].filyal_id){
+           result.rows[i].rayon.push(result12.rows[j])
+          }
+          }
+
+
 }
  
 
