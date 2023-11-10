@@ -17,6 +17,10 @@ const xususiyat_filyalRouter = require('./routes/xususiyat_filyalRouter.js');
 const xususiyat_mutahasisRouter = require('./routes/xususiyat_mutahasisRouter.js');
 const xususiyatlarRouter=require('./routes/xususiyatlarRouter.js');
 const zakazRouter = require('./routes/zakazRouter.js');
+const rayonRouter = require('./routes/rayonRouter.js');
+const metroRouter = require('./routes/metroRouter.js');
+const metro_filyalRouter = require('./routes/metro_filyalRouter.js');
+const rayon_filyalRouter = require('./routes/rayon_filyalRouter.js');
 
 app.use(fileUpload())
 app.use(cors())
@@ -26,7 +30,13 @@ app.get('/',(req,res)=>{
     res.send({message:"welcome to our api"})
 })
 app.use('/api', filyalRouter);
+
+
 app.use('/api', categoryRouter);
+app.use('/api', rayonRouter);
+app.use('/api', metroRouter);
+app.use('/api', metro_filyalRouter);
+app.use('/api', rayon_filyalRouter);
 
 app.use('/api', filyal_imageRouter);
 app.use('/api', filyal_markRouter);

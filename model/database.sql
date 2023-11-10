@@ -112,3 +112,34 @@ create table xususiyat_filyal(
        "time_create" timestamp default current_timestamp not null,
        "time_update" timestamp default current_timestamp not null
 );
+create table rayon(
+       "id" serial primary key,
+       "title" varchar(200) not null,
+       "time_create" timestamp default current_timestamp not null,
+       "time_update" timestamp default current_timestamp not null
+
+);
+create table metro(
+       "id" serial primary key,
+       "title" varchar(200) not null,
+       "time_create" timestamp default current_timestamp not null,
+       "time_update" timestamp default current_timestamp not null
+
+
+);
+
+
+create table metro_filyal(
+         "id" serial primary key,
+       "metro_id" integer not null,
+       "filyal_id" integer not null,
+       "time_create" timestamp default current_timestamp not null,
+       "time_update" timestamp default current_timestamp not null
+);
+create table rayon_filyal(
+         "id" serial primary key,
+       "rayon_id" integer not null,
+       "filyal_id" integer not null,
+       "time_create" timestamp default current_timestamp not null,
+       "time_update" timestamp default current_timestamp not null
+);
