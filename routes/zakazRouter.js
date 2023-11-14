@@ -5,10 +5,10 @@ const pool = require('../db'); // Assuming you have a PostgreSQL connection pool
 // CREATE zakaz
 router.post('/zakaz', async (req, res) => {
   try {
-    const { time_end, time_start, day_zakaz, mutahasis_id } = req.body;
+    const { time_end, time_start, day_zakaz, mutahasis_id,message,user_id } = req.body;
     const newZakaz = await pool.query(
-      'INSERT INTO zakaz (time_end, time_start, day_zakaz, mutahasis_id) VALUES ($1, $2, $3, $4) RETURNING *',
-      [time_end, time_start, day_zakaz, mutahasis_id]
+      'INSERT INTO zakaz (time_end, time_start, day_zakaz, mutahasis_id,message,user_id) VALUES ($1, $2, $3, $4) RETURNING *',
+      [time_end, time_start, day_zakaz, mutahasis_id,message,user_id]
     );
     res.json(newZakaz.rows[0]);
   } catch (err) {
@@ -41,10 +41,10 @@ router.get('/zakaz/:id', async (req, res) => {
 router.put('/zakaz/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const { time_end, time_start, day_zakaz, mutahasis_id } = req.body;
+    const { time_end, time_start, day_zakaz, mutahasis_id,message,user_id  } = req.body;
     const updatedZakaz = await pool.query(
-      'UPDATE zakaz SET time_end = $1, time_start = $2, day_zakaz = $3, mutahasis_id = $4 WHERE id = $5 RETURNING *',
-      [time_end, time_start, day_zakaz, mutahasis_id, id]
+      'UPDATE zakaz SET time_end = $1, time_start = $2, day_zakaz = $3, mutahasis_id = $4,message=$5,user_id=$6 WHERE id = $7 RETURNING *',
+      [time_end, time_start, day_zakaz,mutahasis_id,message,user_id,id]
     );
     res.json(updatedZakaz.rows[0]);
   } catch (err) {

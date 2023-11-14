@@ -21,6 +21,7 @@ create table users(
        "superadmin" Boolean default false not null, 
        "last_login" timestamp default current_timestamp not null, 
        "email" varchar(255) not null,
+       "category" integer default 0 not null,
         unique(email),
        "time_create" timestamp default current_timestamp not null,
        "time_update" timestamp default current_timestamp not null
@@ -50,15 +51,16 @@ create table zakaz(
 "time_start" time not null,
 "day_zakaz" date not null,
 "mutahasis_id" integer not null,
- "time_create" timestamp default current_timestamp not null,
-    "time_update" timestamp default current_timestamp not null
+"message" text not null,
+"user_id" integer not null,
+"time_create" timestamp default current_timestamp not null,
+"time_update" timestamp default current_timestamp not null
 );
 create table category(
     "id" serial primary key,
     "category" varchar(255) not null,
-       "time_create" timestamp default current_timestamp not null,
-    "time_update" timestamp default current_timestamp not null
-    
+    "time_create" timestamp default current_timestamp not null,
+    "time_update" timestamp default current_timestamp not null 
 );
 create table mutahasis(
     "id" serial primary key,
@@ -143,3 +145,11 @@ create table rayon_filyal(
        "time_create" timestamp default current_timestamp not null,
        "time_update" timestamp default current_timestamp not null
 );
+create table contact(
+   "id" serial primary key,
+       "nomer" integer not null,
+       "ism" integer not null,
+       "mutahasis_id" integer not null,
+       "time_create" timestamp default current_timestamp not null,
+       "time_update" timestamp default current_timestamp not null
+)
