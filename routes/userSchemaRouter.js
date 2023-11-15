@@ -74,13 +74,13 @@ router.post("/register",async (req, res) => {
   
       // Check if User exists
       if (!user) {
-        return res.status(400).json({ error: 'User does not exist.'})
+        return res.status(404).json({ error: 'User does not exist.'})
       }
   
       // Compare passwords
       const passwordMatch = await bcrypt.compare(password, user.password);
       if (!passwordMatch){
-        return res.status(400).json({ error: 'Incorrect password.' });
+        return res.status(500).json({ error: 'Incorrect password.' });
       }
   
       // Create token with API secret
@@ -91,7 +91,7 @@ router.post("/register",async (req, res) => {
     
     } catch(err) {
         // set status code to 400 for client errors and provide error message
-        res.status(400).json({ error: err.message });
+        res.status(502).json({ error: err.message });
     }
   });
 
