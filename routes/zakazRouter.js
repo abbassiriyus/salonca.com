@@ -7,7 +7,7 @@ router.post('/zakaz', async (req, res) => {
   try {
     const { time_end, time_start, day_zakaz, mutahasis_id,message,user_id } = req.body;
     const newZakaz = await pool.query(
-      'INSERT INTO zakaz (time_end, time_start, day_zakaz, mutahasis_id,message,user_id) VALUES ($1, $2, $3, $4) RETURNING *',
+      'INSERT INTO zakaz (time_end, time_start, day_zakaz, mutahasis_id,message,user_id) VALUES ($1, $2, $3, $4,$5,$6) RETURNING *',
       [time_end, time_start, day_zakaz, mutahasis_id,message,user_id]
     );
     res.json(newZakaz.rows[0]);
