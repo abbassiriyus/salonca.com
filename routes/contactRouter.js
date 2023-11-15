@@ -9,7 +9,7 @@ router.post('/contact', async (req, res) => {
     const time_create = new Date();
     const time_update = new Date();
     
-    const result = await db.query('INSERT INTO contact (nomer, ism,mutahasis_id, time_create, time_update) VALUES ($1, $2, $3, $4) RETURNING *', [nomer, ism,mutahasis_id, time_create, time_update]);
+    const result = await db.query('INSERT INTO contact (nomer, ism,mutahasis_id, time_create, time_update) VALUES ($1, $2, $3, $4,$5) RETURNING *', [nomer, ism,mutahasis_id, time_create, time_update]);
     
     res.json(result.rows[0]);
   } catch (error) {
