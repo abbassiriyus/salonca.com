@@ -39,7 +39,7 @@ create table filyal_mark(
     "id" serial primary key,
     "mark" text not null,
     "text" varchar(1000) not null,
-    "look" Boolean not null,
+    "look" Boolean default false not null,
     "creator" varchar(200) not null,
     "filyal_id" integer not null,
     "time_create" timestamp default current_timestamp not null,
