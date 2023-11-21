@@ -138,14 +138,14 @@ result.rows[i].rayon=[]
        result.rows[i].filyal_mark.push(result6.rows[j])
       }
       }
-      for (let j = 0; j < result10.rows.length; j++) {
-        if(result.rows[i].id==result10.rows[j].filyal_id){
-         result.rows[i].metro.push(result10.rows[j])
+      for (let j = 0; j < result11.rows.length; j++) {
+        if(result.rows[i].id==result11.rows[j].filyal_id){
+         result.rows[i].metro.push(result11.rows[j])
         }
         }
-        for (let j = 0; j < result12.rows.length; j++) {
-          if(result.rows[i].id==result12.rows[j].filyal_id){
-           result.rows[i].rayon.push(result12.rows[j])
+        for (let j = 0; j < result13.rows.length; j++) {
+          if(result.rows[i].id==result13.rows[j].filyal_id){
+           result.rows[i].rayon.push(result13.rows[j])
           }
           }
 

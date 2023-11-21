@@ -126,8 +126,6 @@ create table metro(
        "title" varchar(200) not null,
        "time_create" timestamp default current_timestamp not null,
        "time_update" timestamp default current_timestamp not null
-
-
 );
 
 
