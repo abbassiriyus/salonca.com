@@ -47,14 +47,14 @@ create table filyal_mark(
 );
 create table zakaz(
     "id" serial primary key,
-"time_end" time not null,
-"time_start" time not null,
-"day_zakaz" date not null,
-"mutahasis_id" integer not null,
-"message" text not null,
-"user_id" integer not null,
-"time_create" timestamp default current_timestamp not null,
-"time_update" timestamp default current_timestamp not null
+    "time_end" time not null,
+    "time_start" time not null,
+    "day_zakaz" date not null,
+    "mutahasis_id" integer not null,
+    "message" text not null,
+    "user_id" integer not null,
+    "time_create" timestamp default current_timestamp not null,
+    "time_update" timestamp default current_timestamp not null
 );
 create table category(
     "id" serial primary key,
