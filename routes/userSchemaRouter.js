@@ -22,6 +22,7 @@ const transporter = nodemailer.createTransport({
 // registratsiya
 router.post("/register",async (req, res) => {
   const body = req.body
+  console.log(body);
   if(body){
   var code =Math.floor(Math.random() * 900000)+100000;
    const hashedPassword = await bcrypt.hash(body.password, 10);

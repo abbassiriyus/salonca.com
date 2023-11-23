@@ -6,8 +6,8 @@ const pool = require('../db'); // Yuklab olingan PostgreSQL pool
 router.post('/filyal_mark', async (req, res) => {
   try {
     const { mark, text, look, creator, filyal_id } = req.body;
-    const query = 'INSERT INTO filyal_mark (mark, text, look, creator, filyal_id) VALUES ($1, $2, $3, $4, $5) RETURNING *';
-    const values = [mark, text, look, creator, filyal_id];
+    const query = 'INSERT INTO filyal_mark (mark, text, creator, filyal_id) VALUES ($1, $2, $3, $4) RETURNING *';
+    const values = [mark, text, creator, filyal_id];
     const result = await pool.query(query, values);
     res.status(201).json(result.rows[0]);
   } catch (error) {
