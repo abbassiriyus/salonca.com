@@ -138,7 +138,6 @@ router.post("/verify", (req, res) => {
                     if (err) {
                         res.status(400).send(err.message)
                     } else {
-                        console.log(result.rows);
                         token = jwt.sign({ password:data2[0].password,email:data2[0].email,username:data2[0].username,position:data2[0].position}, 'secret')
                         res.status(200).send({access:token})
                     }
@@ -159,6 +158,7 @@ router.post("/verify", (req, res) => {
 
 
  
+
 
 // Read -> GET request
 router.get('/users', (req, res) => {

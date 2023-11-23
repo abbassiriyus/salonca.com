@@ -5,11 +5,11 @@ const db = require('../db'); // PostgreSQL bilan ishlash uchun konfiguratsiya
 // CREATE - Yozish (POST)
 router.post('/contact', async (req, res) => {
   try {
-    const { nomer, ism,mutahasis_id } = req.body;
+    const { nomer, ism,mutahasis_id,creator } = req.body;
     const time_create = new Date();
     const time_update = new Date();
     
-    const result = await db.query('INSERT INTO contact (nomer, ism,mutahasis_id, time_create, time_update) VALUES ($1, $2, $3, $4,$5) RETURNING *', [nomer, ism,mutahasis_id, time_create, time_update]);
+    const result = await db.query('INSERT INTO contact (nomer, ism,mutahasis_id, time_create, time_update,creator) VALUES ($1, $2, $3, $4,$5,$6) RETURNING *', [nomer, ism,mutahasis_id, time_create, time_update,creator]);
     
     res.json(result.rows[0]);
   } catch (error) {
@@ -33,10 +33,10 @@ router.get('/contact', async (req, res) => {
 router.put('/contact/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const { nomer, ism,mutahasis_id } = req.body;
+    const { nomer, ism,mutahasis_id,creator } = req.body;
     const time_update = new Date();
     
-    const result = await db.query('UPDATE contact SET nomer = $1, ism = $2,mutahasis_id=$3 time_update = $4 WHERE id = $5 RETURNING *', [nomer, ism,mutahasis_id, time_update, id]);
+    const result = await db.query('UPDATE contact SET nomer = $1, ism = $2,mutahasis_id=$3 time_update = $4,creator=$6 WHERE id = $6 RETURNING *', [nomer, ism,mutahasis_id, time_update,creator, id]);
     
     if (result.rows.length === 0) {
       res.status(404).json({ error: 'Malumot topilmadi.' });

@@ -36,7 +36,8 @@ router.post('/filyal', async (req, res) => {
       const query6= 'SELECT * FROM filyal_mark';
       const result6= await pool.query(query6);
       
-
+      const query7a= 'SELECT * FROM category';
+      const result7a= await pool.query(query7a);
 
       const query7= 'SELECT * FROM mutahasis_time';
       const result7= await pool.query(query7);
@@ -60,6 +61,14 @@ router.post('/filyal', async (req, res) => {
       const query13= 'SELECT * FROM rayon_filyal';
       const result13= await pool.query(query13);
 
+for (let i = 0; i < result2.rows.length; i++) {
+  result2.rows[i].work=""
+for (let k = 0; k < result7a.rows.length; k++) {
+ if(result2.rows[i].category===result7a.rows[k].id){
+  result2.rows[i].work=result7a.rows[k].category
+ } 
+}}
+      
 
 for (let i = 0; i < result4.rows.length; i++) {
  for (let j = 0; j < result5.rows.length; j++) {

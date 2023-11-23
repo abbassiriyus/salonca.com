@@ -147,7 +147,9 @@ create table contact(
    "id" serial primary key,
        "nomer" integer not null,
        "ism" varchar(20) not null,
+       "creator" integer not null,
        "mutahasis_id" integer not null,
        "time_create" timestamp default current_timestamp not null,
        "time_update" timestamp default current_timestamp not null
 )
+drop table contact;
