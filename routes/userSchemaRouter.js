@@ -173,7 +173,13 @@ router.get('/users', (req, res) => {
 
 // Update -> PUT request
 router.put('/users/:id', async(req, res) => {
-    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    var hashedPassword
+    if(req.body.password.length<30){
+     hashedPassword = await bcrypt.hash(req.body.password, 10);   
+    }else{
+     hashedPassword=req.body.password
+    }
+   
     pool.query('UPDATE users SET email=$1, phone=$3, username=$4, superadmin=$5,category=$6,password=$7 WHERE id = $2', 
     [req.body.email,parseInt(req.params.id), req.body.phone, req.body.username, req.body.superadmin,req.body.category,hashedPassword])
      .then(() => {
