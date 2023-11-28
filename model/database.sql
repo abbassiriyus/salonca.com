@@ -152,4 +152,46 @@ create table contact(
        "time_create" timestamp default current_timestamp not null,
        "time_update" timestamp default current_timestamp not null
 )
-drop table contact;
+
+
+ALTER SEQUENCE category_id_seq OWNED BY category.id;
+GRANT USAGE, SELECT ON SEQUENCE category_id_seq TO abbasuz1_abbas;
+ALTER SEQUENCE filyal_id_seq OWNED BY filyal.id;
+GRANT USAGE, SELECT ON SEQUENCE filyal_id_seq TO abbasuz1_abbas;
+ALTER SEQUENCE users_id_seq OWNED BY users.id;
+GRANT USAGE, SELECT ON SEQUENCE users_id_seq TO abbasuz1_abbas;
+ALTER SEQUENCE verify_id_seq OWNED BY verify.id;
+GRANT USAGE, SELECT ON SEQUENCE verify_id_seq TO abbasuz1_abbas;
+ALTER SEQUENCE filyal_mark_id_seq OWNED BY filyal_mark.id;
+GRANT USAGE, SELECT ON SEQUENCE filyal_mark_id_seq TO abbasuz1_abbas;
+ALTER SEQUENCE zakaz_id_seq OWNED BY zakaz.id;
+GRANT USAGE, SELECT ON SEQUENCE zakaz_id_seq TO abbasuz1_abbas;
+ALTER SEQUENCE category_id_seq OWNED BY category.id;
+GRANT USAGE, SELECT ON SEQUENCE category_id_seq TO abbasuz1_abbas;
+ALTER SEQUENCE mutahasis_id_seq OWNED BY mutahasis.id;
+GRANT USAGE, SELECT ON SEQUENCE mutahasis_id_seq TO abbasuz1_abbas;
+ALTER SEQUENCE mutahasis_time_id_seq OWNED BY mutahasis_time.id;
+GRANT USAGE, SELECT ON SEQUENCE mutahasis_time_id_seq TO abbasuz1_abbas;
+ALTER SEQUENCE mutahasis_image_id_seq OWNED BY mutahasis_image.id;
+GRANT USAGE, SELECT ON SEQUENCE mutahasis_image_id_seq TO abbasuz1_abbas;
+ALTER SEQUENCE filyal_image_id_seq OWNED BY filyal_image.id;
+GRANT USAGE, SELECT ON SEQUENCE filyal_image_id_seq TO abbasuz1_abbas;
+ALTER SEQUENCE xususiyat_id_seq OWNED BY xususiyat.id;
+GRANT USAGE, SELECT ON SEQUENCE xususiyat_id_seq TO abbasuz1_abbas;
+ALTER SEQUENCE xususiyat_mutahasis_id_seq OWNED BY xususiyat_mutahasis.id;
+GRANT USAGE, SELECT ON SEQUENCE xususiyat_mutahasis_id_seq TO abbasuz1_abbas;
+ALTER SEQUENCE xususiyat_filyal_id_seq OWNED BY xususiyat_filyal.id;
+GRANT USAGE, SELECT ON SEQUENCE xususiyat_filyal_id_seq TO abbasuz1_abbas;
+ALTER SEQUENCE rayon_id_seq OWNED BY rayon.id;
+GRANT USAGE, SELECT ON SEQUENCE rayon_id_seq TO abbasuz1_abbas;
+ALTER SEQUENCE metro_id_seq OWNED BY metro.id;
+GRANT USAGE, SELECT ON SEQUENCE metro_id_seq TO abbasuz1_abbas;
+ALTER SEQUENCE metro_filyal_id_seq OWNED BY metro_filyal.id;
+GRANT USAGE, SELECT ON SEQUENCE metro_filyal_id_seq TO abbasuz1_abbas;
+ALTER SEQUENCE rayon_filyal_id_seq OWNED BY rayon_filyal.id;
+GRANT USAGE, SELECT ON SEQUENCE rayon_filyal_id_seq TO abbasuz1_abbas;
+ALTER SEQUENCE contact_id_seq OWNED BY contact.id;
+GRANT USAGE, SELECT ON SEQUENCE contact_id_seq TO abbasuz1_abbas;
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON users TO abbasuz1_abbas;
+GRANT CREATE, ALTER, DROP ON users TO abbasuz1_abbas;

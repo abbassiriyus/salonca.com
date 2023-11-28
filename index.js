@@ -11,7 +11,7 @@ const mutahasisRouter = require('./routes/mutahasisRouter.js');
 const mutahasis_imageRouter = require('./routes/mutahasis_imageRouter.js');
 const mutahasis_timeRouter = require('./routes/mutahasis_timeRouter.js');
 const verifyRouter = require('./routes/verifyRouter.js');
-const userSchemaRouter = require('./routes/userSchemaRouter.js');
+// const userSchemaRouter = require('./routes/userSchemaRouter.js');
 const contactRouter = require('./routes/contactRouter.js');
 
 const xususiyat_filyalRouter = require('./routes/xususiyat_filyalRouter.js');
@@ -48,7 +48,7 @@ app.use('/api', verifyRouter);
 app.use('/api', mutahasisRouter);
 app.use('/api', mutahasis_imageRouter);
 app.use('/api', mutahasis_timeRouter);
-app.use('/api', userSchemaRouter);
+// app.use('/api', userSchemaRouter);
 app.use('/api', xususiyat_filyalRouter);
 app.use('/api', xususiyat_mutahasisRouter);
 app.use('/api', xususiyatlarRouter);
