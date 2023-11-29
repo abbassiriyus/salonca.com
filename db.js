@@ -11,6 +11,13 @@ const pool = new Pool({
 //     database: "abbasuz1_test",
 //     password: ")!jsaee{^2j(",
 // })
+// post 443
+// const pool = new Client({
+//     user: "u2363199_abbas",
+//     host: "localhost",
+//     database: "u2363199_salonca",
+//     password: "Tn3RDK6V5W2ifuG",
+// })
 pool.connect(err => {
     if(err) {
         console.log("Connect Error");
