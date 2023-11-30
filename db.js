@@ -1,5 +1,6 @@
 require("dotenv").config()
-const { Client } =require('pg')
+const mysql = require('mysql');
+// const { pool } =require('pg')
 // const { Client } =require('pg')
 
 // const pool = new Pool({
@@ -12,13 +13,13 @@ const { Client } =require('pg')
 //     password: ")!jsaee{^2j(",
 // })
 // post 443
-const pool = new Client({
+const connection = mysql.createConnection({
     user: "u2363199_abbas",
     host: "localhost",
     database: "u2363199_salonca",
     password: "Tn3RDK6V5W2ifuG",
 })
-pool.connect(err => {
+connection.connect(err => {
     if(err) {
         console.log("Connect Error");
         console.log(err);
@@ -27,4 +28,4 @@ pool.connect(err => {
     }
 })
 
-module.exports = pool
+module.exports = connection
