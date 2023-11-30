@@ -1,5 +1,5 @@
 require("dotenv").config()
-const { Pool } =require('pg')
+const { Client } =require('pg')
 // const { Client } =require('pg')
 
 // const pool = new Pool({
